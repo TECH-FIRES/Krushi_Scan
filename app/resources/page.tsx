@@ -40,7 +40,7 @@ export default function ResourcesPage() {
       title: 'Farming Videos & Webinars',
       description: 'Watch expert-led sessions on crop management, pest control, and soil health',
       icon: Video,
-      link: 'https://www.youtube.com/@ICARAgriculturalScience/videos',
+      link: 'https://www.youtube.com/user/ICAR/videos',
       color: 'lavender',
       tips: ['YouTube: ICAR India channel', 'Weekly webinars on new techniques', 'Available in regional languages']
     },
@@ -86,7 +86,8 @@ export default function ResourcesPage() {
       title: 'Government Subsidies & Schemes',
       description: 'Various schemes for equipment, soil health, and organic farming',
       icon: Award,
-      link: 'https://esamwad.gov.in/scheme/agri-mechanization-subdidy-scheme',
+      link: '/subsidies',
+      isInternal: true,
       color: 'lavender',
       benefits: [
         'Equipment subsidy up to 50%',
@@ -99,8 +100,9 @@ export default function ResourcesPage() {
       title: 'Income Diversification',
       description: 'Reduce debt burden by earning from alternative agricultural activities',
       icon: Users,
-      link: 'https://dbtintegration.dal.gov.in',
+      link: '/diversification',
       color: 'sky',
+      isInternal: true,
       benefits: [
         'Dairy farming (₹8-12K/month extra)',
         'Poultry farming (low investment, quick returns)',
@@ -153,8 +155,8 @@ export default function ResourcesPage() {
           href={program.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-nature-forest/20 hover:bg-nature-forest/30 text-nature-forest font-semibold text-sm transition"
-          whileHover={{ scale: 1.05 }}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold text-sm transition-all cursor-pointer hover:bg-green-700 hover:shadow-lg active:scale-95"
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
           Learn More →
@@ -202,16 +204,25 @@ export default function ResourcesPage() {
           ))}
         </div>
 
-        <motion.a
-          href={solution.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-nature-forest text-white font-semibold text-sm hover:bg-nature-forest/90 transition"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {solution.action} →
-        </motion.a>
+        {solution.isInternal ? (
+          <Link
+            href={solution.link}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold text-sm transition-all cursor-pointer hover:bg-green-700 hover:shadow-lg active:scale-95"
+          >
+            {solution.action} →
+          </Link>
+        ) : (
+          <motion.a
+            href={solution.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-600 text-white font-semibold text-sm transition-all cursor-pointer hover:bg-green-700 hover:shadow-lg active:scale-95"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {solution.action} →
+          </motion.a>
+        )}
       </motion.div>
     )
   }
@@ -444,7 +455,7 @@ export default function ResourcesPage() {
                 <p className="text-gray-700 mb-4">Explore comprehensive information on over 50 crops including growing profiles, market data, profitability analysis, and fertilizer recommendations.</p>
                 <Link
                   href="/crops"
-                  className="inline-flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 hover:shadow-lg transition-all font-semibold cursor-pointer"
                 >
                   <Leaf size={20} />
                   Browse All Crops (A-Z)
@@ -463,17 +474,17 @@ export default function ResourcesPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.a
               href="/intelligence"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-full bg-white text-spring-400 font-bold hover:bg-gray-100 transition"
+              className="px-8 py-3 rounded-full bg-white text-green-600 font-bold hover:bg-gray-100 hover:shadow-lg transition-all cursor-pointer active:scale-95"
             >
               View Crop Recommendations
             </motion.a>
             <motion.a
               href="/scan"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-full bg-white/20 text-white font-bold hover:bg-white/30 transition border border-white"
+              className="px-8 py-3 rounded-full bg-white text-green-600 font-bold hover:bg-gray-100 hover:shadow-lg transition-all cursor-pointer active:scale-95 border-2 border-white"
             >
               Scan Your Farm
             </motion.a>

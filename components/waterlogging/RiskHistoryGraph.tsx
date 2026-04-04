@@ -106,6 +106,13 @@ export function RiskHistoryGraph({ data, loading }: RiskHistoryGraphProps) {
               value === 0 ? '' : value === 1 ? 'LOW' : value === 2 ? 'MEDIUM' : 'HIGH'
             }
           />
+          <YAxis
+            yAxisId="right"
+            stroke="#666"
+            tick={{ fontSize: 12 }}
+            orientation="right"
+            domain={[0, 100]}
+          />
           <Tooltip
             contentStyle={{
               backgroundColor: '#fff',
@@ -133,6 +140,7 @@ export function RiskHistoryGraph({ data, loading }: RiskHistoryGraphProps) {
               const data = chartData[props.index || 0]
               return (
                 <circle
+                  key={`risk-dot-${props.index}`}
                   cx={props.cx}
                   cy={props.cy}
                   r={5}
