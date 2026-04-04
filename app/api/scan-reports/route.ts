@@ -5,7 +5,7 @@ import ScanReport from '@/models/ScanReport'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { disease, confidence, treatment, prediction, crop, imageUrl, scanType, recommended_crops, top5_predictions } = body
+    const { disease, confidence, treatment} = body
 
     if (!disease || confidence === undefined || !treatment) {
       return NextResponse.json(
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     await connectToDatabase()
 
