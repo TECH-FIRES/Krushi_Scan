@@ -4,7 +4,7 @@ import SensorData from '@/models/SensorData'
 import { generateAlertsForReading } from '@/lib/alerting'
 
 const FLASK_GETDATA_URL = process.env.FLASK_GETDATA_URL || 'http://127.0.0.1:5000/getdata'
-const INGEST_INTERVAL_MS = 10_000
+const INGEST_INTERVAL_MS = 5_000
 
 const parseNumber = (value: unknown): number | null => {
   const parsed = Number(value)

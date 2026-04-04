@@ -3,7 +3,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import SensorData from '@/models/SensorData'
 import { generateAlertsForReading } from '@/lib/alerting'
 
-const INGEST_INTERVAL_MS = 10_000
+const INGEST_INTERVAL_MS = 5_000
 
 type SensorPayload = {
   soil_moisture: number
@@ -101,7 +101,7 @@ export async function POST(request: Request) {
         return NextResponse.json(
           {
             success: true,
-            message: 'Skipped: sensor data is accepted once every 10 seconds',
+            message: 'Skipped: sensor data is accepted once every 5 seconds',
             next_allowed_in_ms: INGEST_INTERVAL_MS - elapsedMs,
           },
           { status: 200 }

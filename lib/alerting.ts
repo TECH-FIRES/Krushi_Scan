@@ -128,7 +128,11 @@ export async function generateAlertsForReading(sensor: SensorInput) {
       }
 
       let emailed = false
-      if (user.profileSettings?.emailNotifications !== false && user.email) {
+      if (
+        candidate.sensorKey !== 'water_temperature' &&
+        user.profileSettings?.emailNotifications !== false &&
+        user.email
+      ) {
         try {
           emailed = await sendAlertEmail(user.email, user.name, candidate.message)
         } catch (error) {
