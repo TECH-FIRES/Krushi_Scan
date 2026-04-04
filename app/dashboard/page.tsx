@@ -121,15 +121,6 @@ export default function DashboardPage() {
     }
   }, [])
 
-  const handleDeleteAlert = async (id: string | number) => {
-    const idValue = String(id)
-    const response = await fetch(`/api/alerts/${idValue}`, { method: 'DELETE' })
-    if (!response.ok) {
-      return
-    }
-
-    setAlerts((prev) => prev.filter((alert) => alert.id !== idValue))
-  }
 
   const formatReading = (value: number | null, unit: string) => {
     if (value === null) {

@@ -4,16 +4,16 @@ import SensorData from '@/models/SensorData'
 import { generateAlertsForReading } from '@/lib/alerting'
 
 type HardwarePayload = {
-  soil?: number
-  soil_moisture?: number
-  air?: number
-  temperature?: number
-  hum?: number
-  humidity?: number
-  water?: number
-  water_temperature?: number
-  ph?: number
-  device_id?: string
+  soil?: number | string
+  soil_moisture?: number | string
+  air?: number | string
+  temperature?: number | string
+  hum?: number | string
+  humidity?: number | string
+  water?: number | string
+  water_temperature?: number | string
+  ph?: number | string
+  device_id?: string | null
 }
 
 const parseNumber = (value: unknown): number | null => {
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     await connectToDatabase()
 
     const deviceId = payload.device_id || 'ESP32_MAIN_NODE'
-    
+
     const sensorData = {
       device_id: deviceId,
       soil_moisture: soil,
@@ -104,13 +104,13 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     await connectToDatabase()
-    
+
     const url = new URL(request.url)
     const limit = parseInt(url.searchParams.get('limit') || '10')
     const deviceId = url.searchParams.get('device_id')
 
     const query = deviceId ? { device_id: deviceId } : {}
-    
+
     const data = await SensorData.find(query)
       .sort({ timestamp: -1 })
       .limit(limit)
