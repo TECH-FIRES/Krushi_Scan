@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import { Sprout, BarChart3, Leaf, Globe, RadioTower, Droplets, TrendingUp, Languages, ChevronDown, LogOut, UserCircle2, BookOpen } from 'lucide-react'
+import { Sprout, BarChart3, Leaf, Globe, RadioTower, TrendingUp, Languages, ChevronDown, LogOut, UserCircle2, BookOpen } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export function TopNav() {
@@ -120,7 +120,6 @@ export function TopNav() {
     { href: '/', label: 'Home', icon: Sprout },
     { href: '/dashboard', label: 'Dashboard', icon: BarChart3 },
     { href: '/scan', label: 'AI Scanner', icon: Leaf },
-    { href: '/recommendations', label: 'Actions', icon: Droplets },
     { href: '/market', label: 'Market', icon: TrendingUp },
     { href: '/intelligence', label: 'Intelligence', icon: Globe },
     { href: '/telemetry', label: 'Field Sensors', icon: RadioTower },

@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { BookOpen, CreditCard, TrendingUp, Video, Award, DollarSign, Users, Leaf } from 'lucide-react'
-import { cropsDatabase } from '@/lib/cropsDatabase'
 
 export default function ResourcesPage() {
   const containerVariants = {
@@ -433,93 +432,23 @@ export default function ResourcesPage() {
             </div>
           </motion.div>
 
-          {/* Group crops by category letter */}
-          {Array.from(new Set(cropsDatabase.map(crop => crop.category))).sort().map((category) => {
-            const cropsInCategory = cropsDatabase.filter(crop => crop.category === category)
-            
-            return (
-              <motion.div key={category} className="mb-8">
-                <motion.h3
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-2xl font-bold text-nature-forest bg-electric-400/10 p-4 rounded-lg mb-6 border-l-4 border-electric-400"
-                >
-                  {category}
-                </motion.h3>
-
-                <motion.div
-                  className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {cropsInCategory.map((crop) => (
-                    <motion.div
-                      key={crop.id}
-                      variants={itemVariants}
-                      className="relative group"
-                    >
-                      <Link href={`/resources/crops/${crop.id}`}>
-                        <div className="flex flex-col items-center cursor-pointer h-full">
-                          {/* Crop Image */}
-                          <div className="relative w-full aspect-square mb-3 rounded-xl overflow-hidden shadow-md group-hover:shadow-xl transition-shadow">
-                            <img
-                              src={crop.image}
-                              alt={crop.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center">
-                              <motion.div
-                                whileHover={{ scale: 1.1 }}
-                                className="opacity-0 group-hover:opacity-100 transition-opacity"
-                              >
-                                <div className="bg-electric-400 text-white rounded-full p-2">
-                                  <Leaf size={20} />
-                                </div>
-                              </motion.div>
-                            </div>
-                          </div>
-
-                          {/* Crop Name */}
-                          <h4 className="font-bold text-sm md:text-base text-center text-nature-forest group-hover:text-electric-400 transition-colors leading-snug">
-                            {crop.name}
-                          </h4>
-
-                          {/* Hover Details */}
-                          <motion.div
-                            initial={{ opacity: 0, y: 4 }}
-                            whileHover={{ opacity: 1, y: 0 }}
-                            className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-nature-forest to-nature-forest/60 text-white p-2 rounded-b-xl text-xs text-center opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <p className="font-semibold">Click for details</p>
-                          </motion.div>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
-            )
-          })}
-
-          {/* Info Box */}
           <motion.div
-            variants={itemVariants}
-            className="bg-electric-400/10 border-l-4 border-electric-400 p-6 rounded-lg mt-12"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-8 border border-green-200"
           >
-            <h3 className="font-bold text-lg text-nature-forest mb-3">🌱 What You'll Learn About Each Crop</h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <p className="text-sm text-gray-700"><strong>✓ Crop Type & Classification</strong> - Understand what category it belongs to</p>
-                <p className="text-sm text-gray-700"><strong>✓ Climate & Weather</strong> - Optimal temperature, rainfall requirements</p>
-                <p className="text-sm text-gray-700"><strong>✓ Soil Requirements</strong> - Soil type, pH, preparation guidelines</p>
-                <p className="text-sm text-gray-700"><strong>✓ Benefits & Nutrition</strong> - Health benefits and uses</p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-sm text-gray-700"><strong>✓ Growing Profile</strong> - Season, duration, spacing, irrigation, harvesting details</p>
-                <p className="text-sm text-gray-700"><strong>✓ Profitability Analysis</strong> - Cost, yield, market price, net profit per acre</p>
-                <p className="text-sm text-gray-700"><strong>✓ Market Demand</strong> - Export potential, price trends, demand outlook</p>
-                <p className="text-sm text-gray-700"><strong>✓ Fertilizer & Pest Management</strong> - Nutrient requirements, disease control</p>
+            <div className="flex items-start gap-4">
+              <Leaf className="text-green-600 flex-shrink-0" size={28} />
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-nature-forest mb-2">Access Detailed Crop Guides</h3>
+                <p className="text-gray-700 mb-4">Explore comprehensive information on over 50 crops including growing profiles, market data, profitability analysis, and fertilizer recommendations.</p>
+                <Link
+                  href="/crops"
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                >
+                  <Leaf size={20} />
+                  Browse All Crops (A-Z)
+                </Link>
               </div>
             </div>
           </motion.div>
