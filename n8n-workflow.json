@@ -1,0 +1,168 @@
+{
+  "name": "KRUSHI SCAN - IoT to AI Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "esp32-sensor-webhook",
+        "options": {}
+      },
+      "id": "e1f1cae5-090d-4fb7-850c-3f41deec4ae1",
+      "name": "Webhook (ESP32)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "esp32-sensor-webhook"
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/analyze-soil",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "nitrogen",
+              "value": "={{$json.body.nitrogen}}"
+            },
+            {
+              "name": "moisture",
+              "value": "={{$json.body.soil_moisture}}"
+            },
+            {
+              "name": "temperature",
+              "value": "={{$json.body.temperature}}"
+            },
+            {
+              "name": "ph",
+              "value": "={{$json.body.ph}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d0e1b6f0-4fa8-4b71-b873-1f19c6e3b2b8",
+      "name": "AI Decision Engine",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/sensor-data",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "soil_moisture",
+              "value": "={{$json.body.soil_moisture}}"
+            },
+            {
+              "name": "temperature",
+              "value": "={{$json.body.temperature}}"
+            },
+            {
+              "name": "humidity",
+              "value": "={{$json.body.humidity}}"
+            },
+            {
+              "name": "ph",
+              "value": "={{$json.body.ph}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f5f02ab4-57aa-4a47-a8a2-bc628af8fe39",
+      "name": "Save to Dashboard DB",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        480,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.body.risk}}",
+              "operation": "contains",
+              "value2": "HIGH RISK"
+            }
+          ]
+        }
+      },
+      "id": "c6f5bd4c-35cd-45ea-bddb-eaa3ec8c81cb",
+      "name": "Check Risk Level",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "farmer_group",
+        "text": "=ALERT: {{$json.body.risk}}. Please check irrigation plan immediately."
+      },
+      "id": "b3e34ab5-9e67-4bb9-923f-d3eb1df0a28f",
+      "name": "Send Alert (Telegram/SMS)",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        960,
+        280
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook (ESP32)": {
+      "main": [
+        [
+          {
+            "node": "AI Decision Engine",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save to Dashboard DB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Decision Engine": {
+      "main": [
+        [
+          {
+            "node": "Check Risk Level",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Risk Level": {
+      "main": [
+        [
+          {
+            "node": "Send Alert (Telegram/SMS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

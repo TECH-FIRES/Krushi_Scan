@@ -1,0 +1,48 @@
+{
+  "name": "krushi-scan",
+  "version": "1.0.0",
+  "description": "AI-powered Smart Agriculture Dashboard",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@google/genai": "^1.46.0",
+    "@headlessui/react": "^1.7.18",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.17",
+    "axios": "^1.6.5",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.0",
+    "cookie": "^1.1.1",
+    "framer-motion": "^10.16.16",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^0.376.0",
+    "mongoose": "^9.3.3",
+    "next": "^16.2.1",
+    "nodemailer": "^8.0.4",
+    "postcss": "^8.4.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.4",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie": "^0.6.0",
+    "@types/js-cookie": "^3.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^7.0.11",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^16.2.1"
+  }
+}
